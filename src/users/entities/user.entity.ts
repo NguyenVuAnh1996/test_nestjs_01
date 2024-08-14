@@ -12,5 +12,5 @@ export class User extends BaseEntity {
   password: string;
 
   @Column()
-  notitokens: string[];
+  notitokens: string;
 }

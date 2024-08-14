@@ -24,7 +24,7 @@ export class NotiService {
       select: {
         notitokens: true,
       }
-    })).map(x => x.notitokens).flat();
+    })).map(x => JSON.parse(x.notitokens) as string[]).flat();
 
     let expo = new Expo({
       useFcmV1: true,

@@ -23,7 +23,8 @@ export class UsersService {
     // bổ sung validation cho các trường
 
     const user = this.repo.create({
-      ... createUserDto
+      ... createUserDto,
+      notitokens: JSON.stringify([])
     })
     try {
       const newUser = await this.repo.save(user);

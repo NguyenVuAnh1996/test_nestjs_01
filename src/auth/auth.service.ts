@@ -16,11 +16,14 @@ export class AuthService {
     if (!user || user.password !== loginDto.password) {
       throw new UnauthorizedException();
     }
-    if (!user.notitokens.includes(loginDto.notiToken)) {
+    let currentTokenList: string[] = JSON.parse(user.notitokens);
+    if (!currentTokenList.includes(loginDto.notiToken)) {
       try {
         await this.usersService.update(user.id, {
           ...user,
-          notitokens: user.notitokens.concat([loginDto.notiToken])
+          notitokens: JSON.stringify(
+            currentTokenList.concat([loginDto.notiToken])
+          )
         })
       } catch {
         throw new InternalServerErrorException('Cannot update noti token')
@@ -36,12 +39,14 @@ export class AuthService {
 
   async removeNotiTokenWhenLogOut(dto: LogoutDto) {
     const user = await this.usersService.findOne(dto.userId);
-    if (user.notitokens.includes(dto.notiToken)) {
-      const newTokenList = user.notitokens.filter(x => x !== dto.notiToken);
+
+    let currentTokenList: string[] = JSON.parse(user.notitokens);
+    if (currentTokenList.includes(dto.notiToken)) {
+      const newTokenList = currentTokenList.filter(x => x !== dto.notiToken);
       try {
         await this.usersService.update(user.id, {
           ...user,
-          notitokens: newTokenList
+          notitokens: JSON.stringify(newTokenList)
         })
       } catch {
         throw new InternalServerErrorException('Cannot update noti token')
