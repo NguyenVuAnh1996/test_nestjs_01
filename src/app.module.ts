@@ -10,6 +10,8 @@ import { PhotosModule } from './photos/photos.module';
 import { ClipsModule } from './clips/clips.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -19,7 +21,9 @@ import { join } from 'path';
     }),
     JokesModule,
     PhotosModule,
-    ClipsModule
+    ClipsModule,
+    UsersModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

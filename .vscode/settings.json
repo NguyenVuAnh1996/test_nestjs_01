@@ -211,7 +211,6 @@
 					"name": "Class name",
 					"scope": "entity.name.type, entity.name.class, entity.name.namespace, entity.name.scope-resolution",
 					"settings": {
-						"fontStyle": "underline",
 						"foreground": "#A6E22E"
 					}
 				},
@@ -219,7 +218,6 @@
 					"name": "Inherited class",
 					"scope": "entity.other.inherited-class",
 					"settings": {
-						"fontStyle": "italic underline",
 						"foreground": "#A6E22E"
 					}
 				},
