@@ -26,7 +26,7 @@ export class UsersController {
 
   @Post('send-noti')
   async sendNotification(@Body() notiReq: NotificationRequest) {
-    return await this.notiService.sendNoti(notiReq);
+    return (await this.notiService.sendNoti(notiReq)).join('\n');
   }
 
   @Get(':id')

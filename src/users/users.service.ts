@@ -55,8 +55,22 @@ export class UsersService {
     });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    try {
+      const currentUser = await this.repo.findOneBy({
+        id
+      });
+      if (!currentUser) {
+        throw new InternalServerErrorException('Tài khoản này không tồn tại');
+      }
+      const newUser = this.repo.create({
+        ...currentUser,
+        ...updateUserDto
+      })
+      return await this.repo.save(newUser);
+    } catch {
+      throw new InternalServerErrorException('Cập nhật tài khoản thất bại');
+    }
   }
 
   remove(id: number) {

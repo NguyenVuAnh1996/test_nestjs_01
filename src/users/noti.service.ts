@@ -43,6 +43,8 @@ export class NotiService {
         to: token,
         title: notiReq.title,
         body: notiReq.body,
+        sound: 'default',
+        channelId: 'default',
         data: {
           withsome: 'some test data'
         }
