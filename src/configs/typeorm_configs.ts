@@ -6,7 +6,7 @@ import { ConfigModule, registerAs } from "@nestjs/config";
 dotenvConfig({ path: '.env' });
 
 export const config: TypeOrmModuleOptions = {
-  type: 'mysql',
+  type: 'postgres',
   host: process.env.db_host,
   port: Number(process.env.db_port),
   username: process.env.db_username,
@@ -17,6 +17,7 @@ export const config: TypeOrmModuleOptions = {
   migrationsRun: false,
   autoLoadEntities: true,
   synchronize: false,
+  ssl: true
 }
 
 export const dataSource = registerAs('data-source', () => config);
