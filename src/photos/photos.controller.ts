@@ -36,15 +36,15 @@ export class PhotosController {
   }
 
   @Post('upload')
-  @UseInterceptors(FileInterceptor(
-    'file', {
-      storage: diskStorage({
-        destination: './uploads/images/',
-        filename: (req: any, file: Express.Multer.File, cb: (err: Error | null, fileName: string) => void) => 
-          cb(null, file.originalname)
-      })
-    }
-  ))
+  // @UseInterceptors(FileInterceptor(
+  //   'file', {
+  //     storage: diskStorage({
+  //       destination: './uploads/images/',
+  //       filename: (req: any, file: Express.Multer.File, cb: (err: Error | null, fileName: string) => void) => 
+  //         cb(null, file.originalname)
+  //     })
+  //   }
+  // ))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
     let _file = new CreatePhotoDto();
     _file.url = file.originalname;
