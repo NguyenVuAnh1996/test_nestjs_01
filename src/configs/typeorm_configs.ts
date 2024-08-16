@@ -17,7 +17,7 @@ export const config: TypeOrmModuleOptions = {
   migrationsRun: false,
   autoLoadEntities: true,
   synchronize: false,
-  ssl: true
+  ssl: process.env.db_ssl === 'true'
 }
 
 export const dataSource = registerAs('data-source', () => config);

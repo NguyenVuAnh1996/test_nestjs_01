@@ -45,9 +45,10 @@ export class PhotosController {
   //     })
   //   }
   // ))
+  @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
     let _file = new CreatePhotoDto();
-    _file.url = file.originalname;
+    _file.url = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
     return await this.photosService.create(_file);
   }
 }
