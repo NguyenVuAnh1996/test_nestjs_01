@@ -4,7 +4,7 @@ import { CreatePhotoDto } from './dto/create-photo.dto';
 import { UpdatePhotoDto } from './dto/update-photo.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
-import { diskStorage } from 'multer';
+// import { diskStorage } from 'multer';
 
 @Controller('api/photos')
 export class PhotosController {
