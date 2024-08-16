@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginDto } from 'src/users/dto/login.dto';
-import { LogoutDto } from 'src/users/dto/logout.dto';
+import { LoginDto } from '../users/dto/login.dto';
+import { LogoutDto } from '../users/dto/logout.dto';
 
 @Controller('api/auth')
 export class AuthController {

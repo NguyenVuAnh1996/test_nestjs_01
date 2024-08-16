@@ -1,4 +1,5 @@
 {
+	"typescript.preferences.importModuleSpecifier": "relative",
 	"workbench.colorCustomizations": {
 		"titleBar.activeBackground": "#bb253a",
 		"titleBar.inactiveBackground": "#bb253a",

@@ -1,11 +1,11 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Expo, ExpoPushErrorReceipt, ExpoPushMessage, ExpoPushSuccessTicket, ExpoPushTicket } from 'expo-server-sdk';
-import { expo_access_token, noti_sound } from "src/constants/otherConstants";
 import { User } from "./entities/user.entity";
 import { In, Repository } from "typeorm";
 import { NotificationRequest } from "./dto/noti-req.dto";
 import { title } from "process";
+import { expo_access_token } from "../constants/otherConstants";
 
 @Injectable()
 export class NotiService {
