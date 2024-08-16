@@ -2,7 +2,7 @@ import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Expo, ExpoPushErrorReceipt, ExpoPushMessage, ExpoPushSuccessTicket, ExpoPushTicket } from 'expo-server-sdk';
 import { User } from "./entities/user.entity";
-import { In, Repository } from "typeorm";
+import { In, Like, Repository } from "typeorm";
 import { NotificationRequest } from "./dto/noti-req.dto";
 import { title } from "process";
 import { expo_access_token } from "../constants/otherConstants";
@@ -13,6 +13,23 @@ export class NotiService {
     @InjectRepository(User)
     private userRepo: Repository<User>
   ) {}
+
+  async removeNotiToken(notiToken: string) {
+    const user = await this.userRepo.findOneBy({
+      notitokens: Like(`%${notiToken}%`)
+    })
+    let currentTokenList: string[] = JSON.parse(user.notitokens);
+    const newTokenList = currentTokenList.filter(x => x !== notiToken);
+    const newUser = this.userRepo.create({
+      ...user,
+      notitokens: JSON.stringify(newTokenList)
+    })
+    try {
+      await this.userRepo.save(newUser);
+    } catch {
+      throw new InternalServerErrorException('Hủy token thất bại');
+    }
+  }
 
   async sendNoti(notiReq: NotificationRequest) {
     let result: string[] = [];
@@ -80,6 +97,10 @@ export class NotiService {
             result.push(`Error message from Google/ Apple: ${message}`)
             if (details && details.error) {
               result.push(`Error details: ${details.error}`)
+              if (details.error === 'DeviceNotRegistered') {
+                // delete that token
+                // await this.removeNotiToken()
+              }
             }
           }
         }

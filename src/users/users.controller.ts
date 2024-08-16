@@ -26,7 +26,10 @@ export class UsersController {
 
   @Post('send-noti')
   async sendNotification(@Body() notiReq: NotificationRequest) {
-    return (await this.notiService.sendNoti(notiReq)).join('\n');
+    let result = await this.notiService.sendNoti(notiReq);
+    return {
+      result: result.join('\n')
+    };
   }
 
   @Get(':id')
