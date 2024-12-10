@@ -1,0 +1,16 @@
+services:
+  db:
+    image: mysql
+    container_name: mysql_db
+    ports:
+      - "3401:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${db_password}
+      MYSQL_DATABASE: ${db_database}
+  app:
+    build: .
+    container_name: test_nestjs_01_app
+    ports:
+      - "7401:7401"
+    depends_on:
+      - db

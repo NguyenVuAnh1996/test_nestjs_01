@@ -17,6 +17,7 @@ export const config: TypeOrmModuleOptions = {
   migrationsRun: false,
   autoLoadEntities: true,
   synchronize: false,
+  connectTimeout: 10000
   // ssl: process.env.db_ssl === 'true',
 };
 

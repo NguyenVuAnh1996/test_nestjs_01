@@ -9,7 +9,7 @@ async function bootstrap() {
   app.enableCors();
   await app.listen(
     process.env.main_port, 
-    process.env.main_host
+    // process.env.main_host
   );
 }
 bootstrap();
