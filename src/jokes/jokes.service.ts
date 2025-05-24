@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateJokeDto } from './dto/create-joke.dto';
 import { UpdateJokeDto } from './dto/update-joke.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -29,15 +29,35 @@ export class JokesService {
     return result;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} joke`;
+  async findOne(id: number) {
+    let result = await this.repo.findOneBy({
+      id
+    })
+    if (!result) {
+      throw new InternalServerErrorException('Joke not found!')
+    }
+    return result as JokeDto;
   }
 
-  update(id: number, updateJokeDto: UpdateJokeDto) {
-    return `This action updates a #${id} joke`;
+  async update(id: number, updateJokeDto: UpdateJokeDto) {
+    const currentItem = await this.repo.findOneBy({
+      id
+    })
+    if (!currentItem) {
+      throw new InternalServerErrorException('Joke not found!')
+    }
+    const newItem = this.repo.create({
+      ...currentItem,
+      ...updateJokeDto
+    })
+    await this.repo.save(newItem);
+    return true;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} joke`;
+  async remove(id: number) {
+    await this.repo.delete({
+      id
+    })
+    return true;
   }
 }
